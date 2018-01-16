@@ -1,0 +1,27 @@
+package min.edu.dto;
+
+import java.sql.Date;
+
+
+public class Dto {
+	
+	private int seq;
+	private String user_id;
+	private String user_pw;
+	private String user_name;
+	private String email;
+	private String user_record;
+	private	Date regdate;
+	private String grade;
+	private String enabled;
+	private String sregdate;
+	
+	//기본생성자를 무조건 써줘야한다, 안그러면 mapping이 안됨
+	public Dto() {
+		
+	}
+	
+	
+	
+	
+}

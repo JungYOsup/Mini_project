@@ -1,0 +1,120 @@
+package min.edu.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import min.edu.dao.Dao;
+import min.edu.dto.Dto;
+
+@WebServlet("/Controller.do")
+public class Controller extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String command = request.getParameter("command");
+		Dao dao = new Dao();
+		
+		if(command.equals("loginform")){
+			
+			response.sendRedirect("login_form.jsp");
+		
+		}else if(command.equals("adminform")) {
+
+			response.sendRedirect("adminform.jsp");
+			
+		}else if(command.equals("selectAll")) {
+			
+			List<Dto> lists = dao.selectAll();
+			request.setAttribute("lists", lists);
+			dispatch("Controller.do?command=loginform", request, response);
+			
+		}else if(command.equals("selectdetail")) {
+			
+			Dto dto = null;
+			String id = request.getParameter("id");
+			dto = dao.selectdetail(id);
+					
+			
+		}else if(command.equals("login")) {
+			
+			Dto ldto = null;
+			String id = request.getParameter("id");
+			String pw = request.getParameter("pw");
+			
+			ldto = dao.login(id, pw);
+			if(ldto!=null) { //ldto가 있으면 , 처음에는 ldto.getid()로써 가져와서 해보렿 했으나 쿼리문에서 정보가 없어 null을 보낼때 null.getid()를 할수가 없으므로, else에서 nullpointException이 뜬다.
+							 //따라서 ldto!=null로 바꿔줌
+				
+					request.getSession().setAttribute("ldto", ldto);
+					request.getSession().setMaxInactiveInterval(10*60);
+					
+					
+					if(ldto.getGrade().toUpperCase().equals("ADMIN")) {
+						
+						response.sendRedirect("Controller.do?command=adminform");
+						
+					}else if(ldto.getGrade().equals("USER")) {
+						
+						response.sendRedirect("room_first.jsp");
+						
+					}
+			}else {
+				
+				response.sendRedirect("Controller.do?command=loginform");
+			}
+			
+			
+		}else if(command.equals("signup")) {
+			Dto dto = null;			
+			String id =request.getParameter("id");
+			String pw = request.getParameter("pw");
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			
+			dto=dao.selectdetail(id);
+			
+			if(dto.getUser_id()==null) {
+				
+				boolean isc =dao.signup(id, pw, name, email);
+				
+			}else {
+				
+			}
+			
+			
+			
+			if(isc) {
+				
+				response.sendRedirect("Controller.do?command=loginform");
+				
+			}else {
+				
+				response.sendRedirect("Controller.do?command=signup");
+			}
+			
+			
+		}
+		
+				
+	}
+	
+	
+	public void dispatch(String url,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		RequestDispatcher dispatch = request.getRequestDispatcher(url);
+		dispatch.forward(request, response);
+	}
+
+}

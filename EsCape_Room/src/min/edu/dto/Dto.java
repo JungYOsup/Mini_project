@@ -14,24 +14,11 @@ public class Dto {
 	private	Date regdate;
 	private String grade;
 	private String enabled;
+	private String sregdate;
 	
 	//기본생성자를 무조건 써줘야한다, 안그러면 mapping이 안됨
 	public Dto() {
 		
-	}
-	
-	public Dto(int seq, String user_id, String user_pw, String user_name, String email, String user_record,
-			Date regdate, String grade, String enabled) {
-		super();
-		this.seq = seq;
-		this.user_id = user_id;
-		this.user_pw = user_pw;
-		this.user_name = user_name;
-		this.email = email;
-		this.user_record = user_record;
-		this.regdate = regdate;
-		this.grade = grade;
-		this.enabled = enabled;
 	}
 
 	public int getSeq() {
@@ -106,17 +93,20 @@ public class Dto {
 		this.enabled = enabled;
 	}
 
+	public String getSregdate() {
+		return sregdate;
+	}
+
+	public void setSregdate(String sregdate) {
+		this.sregdate = sregdate;
+	}
+
 	@Override
 	public String toString() {
 		return "Dto [seq=" + seq + ", user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name
 				+ ", email=" + email + ", user_record=" + user_record + ", regdate=" + regdate + ", grade=" + grade
-				+ ", enabled=" + enabled + "]";
+				+ ", enabled=" + enabled + ", sregdate=" + sregdate + "]";
 	}
-		
-	
-	
-	
-	
 	
 	
 	

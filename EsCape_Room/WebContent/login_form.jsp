@@ -32,7 +32,7 @@
 	
 	<tr>
 		<td><input type="submit" value="로그인"> </td>
-		<td><input type="button" value="회원가입"> </td>
+		<td><input type="button" value="회원가입" onclick="location.href='sign_up_form.jsp'"> </td>
 		
 	</tr>
 </table>

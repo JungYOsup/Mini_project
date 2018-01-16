@@ -11,7 +11,7 @@
 	
 	<!--상세조회 -->
 	<select id="selectdetail" parameterType="Map" resultType="roomdto">
-	SELECT SEQ,USER_ID,USER_PW,USER_NAME,EMAIL,USER_RECORD,SYSDATE,GRADE,ENABLED FROM ROOMUSER WHERE USER_ID=#{id}
+	SELECT SEQ,USER_ID,USER_PW,USER_NAME,EMAIL,USER_RECORD,TO_CHAR(REGDATE,'YYYY-MM-DD') as SREGDATE,GRADE,ENABLED FROM ROOMUSER WHERE USER_ID=#{id}
 	
 	</select>
 	
@@ -21,6 +21,12 @@
 	
 	</select>
 	
+	<!--회원가입  -->
+	<insert id="signp" parameterType="Map">
+	
+	INSERT INTO ROOMUSER (SEQ,USER_ID,USER_PW,USER_NAME,EMAIL,USER_RECORD,REGDATE,GRADE,ENABLED) VALUES(ROOMUSER_SEQ.NEXTVAL,#{id},#{pw},#{name},#{email},NULL,SYSDATE,USER,'Y')
+	
+	</insert>
 	
 </mapper>
 
