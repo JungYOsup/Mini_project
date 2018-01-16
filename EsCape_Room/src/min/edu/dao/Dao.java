@@ -109,6 +109,38 @@ public class Dao extends sqlMapConfig{
 		
 		
 	}
+	//5.결과값을 가져오는 메서드
+	//파라미터로 입력값을 받고 그 입력값을 쿼리에 넣었을때 그 값과 일치하는게 있을경우 정답
+	//결과값은 dto로 리턴받겠다
+	public String bringresult(String text) {
+		String str="";
+		
+		SqlSession sqlSession = null;
+		
+		Map<String, String> map = new HashMap<String,String>();
+		
+		map.put("result", text);
+					
+		try {
+			sqlSession = getSQLSessionFactory().openSession(true);
+			str= sqlSession.selectOne(namespace+"resultsql", map);
+			
+			System.out.println(str);
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}finally {
+			sqlSession.close();
+		}
+		
+		
+		return str;
+		
+		
+	}
+	
+	
 	
 	
 }

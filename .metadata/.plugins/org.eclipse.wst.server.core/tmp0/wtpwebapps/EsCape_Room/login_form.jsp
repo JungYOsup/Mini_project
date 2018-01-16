@@ -14,7 +14,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>로그인화면</h2>
+<h2>제목</h2>
+<div>
+당신은 세계를 누비는 탐험가! 마지막 목표는 이집트의 피라미드!
+
+엄청난 보물의 근원지를 파악했다는 정보를 입수햇다. 화려한 여행의 마무리를 
+짖시 위해서 가족과 연인을 동반해서 탐험에 나섰다! 불가사의한 피라미드를 탐험 중 당신과 일행은 
+피라미드에 갇히게 된다. 방안에 모든 단서를 이용하여피라미드를 탈출해야한다.
+</div>
 <form action="Controller.do" method="post">
 <input type="hidden" name="command" value="login">
 <table border="1">

@@ -22,11 +22,16 @@
 	</select>
 	
 	<!--회원가입  -->
-	<insert id="signp" parameterType="Map">
+	<insert id="signup" parameterType="Map">
 	
 	INSERT INTO ROOMUSER (SEQ,USER_ID,USER_PW,USER_NAME,EMAIL,USER_RECORD,REGDATE,GRADE,ENABLED) VALUES(ROOMUSER_SEQ.NEXTVAL,#{id},#{pw},#{name},#{email},NULL,SYSDATE,USER,'Y')
 	
 	</insert>
+	
+	<!--결과값가져오기  **결과값이 하나일경우 resultType을 String,int로 해도된다. -->
+	<select id="resultsql" parameterType="Map" resultType="String">
+	SELECT RESULTROOM FROM RESULT WHERE RESULTROOM=#{result}
+	</select>
 	
 </mapper>
 

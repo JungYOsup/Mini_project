@@ -9065,3 +9065,55 @@ java.lang.IllegalStateException: Preference node "org.jkiss.dbeaver.project.reso
 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:653)
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1499)
+
+!ENTRY org.eclipse.ui.workbench 4 0 2018-01-16 17:00:38.416
+!MESSAGE Invalid thread access
+!STACK 0
+org.eclipse.swt.SWTException: Invalid thread access
+	at org.eclipse.swt.SWT.error(SWT.java:4533)
+	at org.eclipse.swt.SWT.error(SWT.java:4448)
+	at org.eclipse.swt.SWT.error(SWT.java:4419)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:482)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:373)
+	at org.eclipse.swt.widgets.Decorations.getText(Decorations.java:760)
+	at org.eclipse.ui.internal.WorkbenchWindowConfigurer.getTitle(WorkbenchWindowConfigurer.java:268)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchWindowAdvisor.recomputeTitle(IDEWorkbenchWindowAdvisor.java:432)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchWindowAdvisor.access$2(IDEWorkbenchWindowAdvisor.java:430)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchWindowAdvisor$1.propertyChanged(IDEWorkbenchWindowAdvisor.java:113)
+	at org.eclipse.ui.part.WorkbenchPart.firePropertyChange(WorkbenchPart.java:119)
+	at org.eclipse.ui.texteditor.AbstractTextEditor.firePropertyChange(AbstractTextEditor.java:6345)
+	at org.eclipse.ui.part.WorkbenchPart.setTitleImage(WorkbenchPart.java:300)
+	at org.jkiss.dbeaver.ui.editors.sql.SQLEditor.access$19(SQLEditor.java:1)
+	at org.jkiss.dbeaver.ui.editors.sql.SQLEditor$SQLEditorQueryListener.onStartQuery(SQLEditor.java:2157)
+	at org.jkiss.dbeaver.runtime.sql.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:372)
+	at org.jkiss.dbeaver.runtime.sql.SQLQueryJob.extractData(SQLQueryJob.java:794)
+	at org.jkiss.dbeaver.ui.editors.sql.SQLEditor$QueryResultsContainer.readData(SQLEditor.java:1957)
+	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetJobDataRead.run(ResultSetJobDataRead.java:91)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:95)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+
+!ENTRY org.eclipse.ui.workbench 4 0 2018-01-16 17:00:38.426
+!MESSAGE Invalid thread access
+!STACK 0
+org.eclipse.swt.SWTException: Invalid thread access
+	at org.eclipse.swt.SWT.error(SWT.java:4533)
+	at org.eclipse.swt.SWT.error(SWT.java:4448)
+	at org.eclipse.swt.SWT.error(SWT.java:4419)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:482)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:373)
+	at org.eclipse.swt.widgets.Decorations.getText(Decorations.java:760)
+	at org.eclipse.ui.internal.WorkbenchWindowConfigurer.getTitle(WorkbenchWindowConfigurer.java:268)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchWindowAdvisor.recomputeTitle(IDEWorkbenchWindowAdvisor.java:432)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchWindowAdvisor.access$2(IDEWorkbenchWindowAdvisor.java:430)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchWindowAdvisor$1.propertyChanged(IDEWorkbenchWindowAdvisor.java:113)
+	at org.eclipse.ui.part.WorkbenchPart.firePropertyChange(WorkbenchPart.java:119)
+	at org.eclipse.ui.texteditor.AbstractTextEditor.firePropertyChange(AbstractTextEditor.java:6345)
+	at org.eclipse.ui.part.WorkbenchPart.setTitleImage(WorkbenchPart.java:300)
+	at org.jkiss.dbeaver.ui.editors.sql.SQLEditor.access$19(SQLEditor.java:1)
+	at org.jkiss.dbeaver.ui.editors.sql.SQLEditor$SQLEditorQueryListener.onEndQuery(SQLEditor.java:2189)
+	at org.jkiss.dbeaver.runtime.sql.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:480)
+	at org.jkiss.dbeaver.runtime.sql.SQLQueryJob.extractData(SQLQueryJob.java:794)
+	at org.jkiss.dbeaver.ui.editors.sql.SQLEditor$QueryResultsContainer.readData(SQLEditor.java:1957)
+	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetJobDataRead.run(ResultSetJobDataRead.java:91)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:95)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)

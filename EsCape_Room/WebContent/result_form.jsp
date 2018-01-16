@@ -59,6 +59,8 @@ table input{
 <title>Insert title here</title>
 </head>
 <body>
+<form action="Controller.do" method="post">
+	<input type="hidden" name="command" value="result">
 	<input type="text" name="text" id="input" readonly="readonly" placeholder="비밀번호는 최대6개">
 	<table>
 		
@@ -77,11 +79,18 @@ table input{
 			<td><input type="button" value="8" onclick="inputText(this.value)"></td>
 			<td><input type="button" value="9" onclick="inputText(this.value)"></td>
 		</tr>
-
+		
+		<tr>
+			<td><input type="submit" value="입력"></td>
+			<td><input type="button" value="뒤로" ></td>
+		</tr>
 
 
 
 	</table>
 
+</form>
+
 </body>
+
 </html>

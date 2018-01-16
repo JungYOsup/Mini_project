@@ -35,7 +35,9 @@
 				type : "post",
 				datatype : "json",
 				success : function name(obj) {
-
+					
+					//json형태로 값이 전달받았다. 그렇기때문에 key로써 값을 찾을수 있다. 
+					
 					var dto = obj["dto"];
 
 					if (dto == null) {//데이터베이스에 아이디가 없을 경우

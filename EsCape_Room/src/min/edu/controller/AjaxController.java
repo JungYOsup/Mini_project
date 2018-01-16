@@ -36,6 +36,7 @@ public class AjaxController extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		dto=dao.selectdetail(id);
+		//Json은 Key,value형태이기 때문에 Map으로써 전달할수 있다.그렇기때문에 Map으로써 값을 넣은거임
 		
 		Map<String, Dto> map = new HashMap<String,Dto>();
 		
