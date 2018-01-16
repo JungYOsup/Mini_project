@@ -1,0 +1,13 @@
+package min.edu.dao;
+
+import java.util.List;
+
+import min.edu.dto.Dto;
+
+public class Dao {
+
+	
+	//1.전체정보가지고오기
+	
+	public List<Dto>
+}

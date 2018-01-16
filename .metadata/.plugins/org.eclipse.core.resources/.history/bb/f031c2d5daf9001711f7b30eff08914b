@@ -1,0 +1,22 @@
+package min.edu.dao;
+
+import java.io.Reader;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+
+public class sqlMapConfig {
+
+	
+	private SqlSessionFactory sqlSessionFactory;
+	
+	public SqlSessionFactory getSQLSessionFactory() {
+		
+		
+		String resource = "min/edu/mybatis/Configuration.xml";
+		
+	
+		Reader reader = Resources.getResourceAsReader(resource);
+	}
+}

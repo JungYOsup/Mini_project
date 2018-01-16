@@ -1,0 +1,49 @@
+package min.edu.dao;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import min.edu.dto.Dto;
+
+public class Dao extends sqlMapConfig{
+
+	private String namepace ="min.edu.room.";
+	
+	//1.전체정보가지고오기
+	//전체정보는 파라미터로 던지는 값이 없고 , 결과값이 객체로 넘어 온다.
+	
+	public List<Dto> selectAll(){
+		
+		List<Dto> lists = new ArrayList<Dto>();
+		SqlSession sqlSession = null;
+		
+		try {
+			sqlSession = getSQLSessionFactory().openSession(true);
+			lists= sqlSession.selectList(namepace+"selectAll");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			sqlSession.close();
+		}
+				
+		return lists;
+		
+	}
+	
+	//2.로그인하기
+	
+	public Dto login(String id) {
+		
+		Dto dto = null;
+		
+		SqlSession sqlSession =null;
+		
+		sqlSession = getSQLSessionFactory().openSession(true);
+		dto = sqlSession.selectOne("id", id);
+				
+		
+		return dto;
+	}
+}

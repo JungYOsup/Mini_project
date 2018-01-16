@@ -1,0 +1,17 @@
+package min.edu.dto;
+
+import java.sql.Date;
+
+public class Dto {
+	
+	private String seq;
+	private String id;
+	private String password;
+	private String name;
+	private String email;
+	private Date regdate;
+	private String grade;
+	private String enabled
+	
+	
+}
