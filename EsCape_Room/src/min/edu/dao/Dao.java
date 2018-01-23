@@ -21,9 +21,39 @@ public class Dao extends sqlMapConfig{
 		List<Dto> lists = new ArrayList<Dto>();
 		SqlSession sqlSession = null;
 		
+		
+		
 		try {
 			sqlSession = getSQLSessionFactory().openSession(true);
-			lists= sqlSession.selectList(namespace+"selectAll");
+			lists= sqlSession.selectList(namespace+"selectAll"); //매핑은 DataMapper에서 결과값으로 반환할때 해줌!
+			//그리고 그 결과값을 lists가 받는것일뿐이다. 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			sqlSession.close();
+		}
+				
+		return lists;
+		
+	}
+	//1.1특정갯수만큼 정보 가지고 오기
+	
+	public List<Dto> selectAll(String snum,String lnum){
+		
+		List<Dto> lists = new ArrayList<Dto>();
+		SqlSession sqlSession = null;
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("snum", snum);
+		map.put("lnum", lnum);
+		
+		
+		try {
+			sqlSession = getSQLSessionFactory().openSession(true);
+			lists= sqlSession.selectList(namespace+"selectWhere",map); //매핑은 DataMapper에서 결과값으로 반환할때 해줌!
+			//그리고 그 결과값을 lists가 받는것일뿐이다. 
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -70,7 +100,7 @@ public class Dao extends sqlMapConfig{
 		
 		try {
 			sqlSession = getSQLSessionFactory().openSession(true);
-			dto = sqlSession.selectOne(namespace+"login", map);
+			dto = sqlSession.selectOne(namespace+"login", map); //dto와 매핑을 한 객체를 반환해줌
 					
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -140,6 +170,64 @@ public class Dao extends sqlMapConfig{
 		
 	}
 	
+	//6.측정된 시간값을 받아 그걸로 쿼리를 업데이트 시켜주는 메서드
+	//리턴타입은 성공여부에따라 리턴해주기 때문에 boolean
+	
+	public boolean UpdateRecord(String record,String id) {
+		int count =0;
+		SqlSession sqlSession = null;
+		
+		
+		Map<String, String> map = new HashMap<String,String>();
+		map.put("record", record);
+		map.put("id", id);
+		
+		sqlSession=getSQLSessionFactory().openSession(true);
+		
+		count=sqlSession.update(namespace+"update",map);
+				
+		return count>0?true:false;
+		
+		
+		
+	}
+	
+	//7.등급 업데이트,탈퇴 업데이트 
+	public boolean UpdateGrade(String grade , String id,String enabled) {
+		int count =0;
+		SqlSession sqlSession = null;
+		
+		
+		Map<String, String> map = new HashMap<String,String>();
+		
+		map.put("grade", grade);
+		map.put("id", id);
+		map.put("enabled", enabled);
+		sqlSession=getSQLSessionFactory().openSession(true);
+		
+		count=sqlSession.update(namespace+"updategrade",map);
+				
+		return count>0?true:false;
+		
+		
+		
+	}
+	
+	//페이지 측정 메소드
+	
+	public int pageCount() {
+		int count=0;
+		SqlSession sqlSession=null;
+		try {
+			sqlSession=getSQLSessionFactory().openSession(true);
+			count=sqlSession.selectOne(namespace+"boardcount");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			sqlSession.close();
+		}
+		return count;
+	}
 	
 	
 	

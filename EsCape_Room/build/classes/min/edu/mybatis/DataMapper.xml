@@ -3,15 +3,23 @@
 
 <mapper namespace="min.edu.room">
 
-	<!--전체조회  -->
-	<select id="selectAll" resultType="List">	
-	SELECT SEQ,USER_ID,USER_PW,USER_NAME,EMAIL,USER_RECORD,SYSDATE,GRADE,ENABLED FROM ROOMUSER
+	<!--전체조회  **결과타입이 List가 아니라 Dto아자나!!!-->
+	<select id="selectAll" resultType="roomdto">	
+	SELECT ROW_NUMBER() OVER(ORDER BY USER_RECORD ASC) AS RANK , SEQ, USER_ID , USER_PW , USER_NAME , EMAIL , NVL(USER_RECORD,'기록없음') as USER_RECORD  , REGDATE , GRADE , ENABLED FROM ROOMUSER 
 	
+	</select>
+	
+	<!--특정범위조회 -->
+	<select id="selectWhere" parameterType="Map" resultType="roomdto">
+	SELECT RANK , SEQ, USER_ID , USER_PW , USER_NAME , EMAIL , NVL(USER_RECORD,'기록없음') as USER_RECORD  , REGDATE , GRADE , ENABLED FROM 
+	(SELECT ROW_NUMBER() OVER(ORDER BY USER_RECORD ASC) AS RANK , SEQ, USER_ID , USER_PW , USER_NAME , EMAIL , NVL(USER_RECORD,'기록없음') as USER_RECORD,REGDATE , GRADE , ENABLED FROM ROOMUSER) 
+	WHERE RANK BETWEEN #{snum} AND #{lnum}
+		
 	</select>
 	
 	<!--상세조회 -->
 	<select id="selectdetail" parameterType="Map" resultType="roomdto">
-	SELECT SEQ,USER_ID,USER_PW,USER_NAME,EMAIL,USER_RECORD,TO_CHAR(REGDATE,'YYYY-MM-DD') as SREGDATE,GRADE,ENABLED FROM ROOMUSER WHERE USER_ID=#{id}
+	SELECT SEQ , USER_ID , USER_PW , USER_NAME , EMAIL ,NVL(USER_RECORD,'기록없음') as USER_RECORD, TO_CHAR(REGDATE,'YYYY-MM-DD') as SREGDATE,GRADE,ENABLED FROM ROOMUSER WHERE USER_ID=#{id}
 	
 	</select>
 	
@@ -22,15 +30,38 @@
 	</select>
 	
 	<!--회원가입  -->
-	<insert id="signup" parameterType="Map">
+	<insert id="signup" parameterType="Map"> 
 	
-	INSERT INTO ROOMUSER (SEQ,USER_ID,USER_PW,USER_NAME,EMAIL,USER_RECORD,REGDATE,GRADE,ENABLED) VALUES(ROOMUSER_SEQ.NEXTVAL,#{id},#{pw},#{name},#{email},NULL,SYSDATE,USER,'Y')
+	INSERT INTO ROOMUSER (SEQ,USER_ID,USER_PW,USER_NAME,EMAIL,USER_RECORD,REGDATE,GRADE,ENABLED) VALUES(ROOMUSER_SEQ.NEXTVAL,#{id},#{pw},#{name},#{email},NULL,SYSDATE,'BRONZE','Y')
 	
 	</insert>
 	
 	<!--결과값가져오기  **결과값이 하나일경우 resultType을 String,int로 해도된다. -->
 	<select id="resultsql" parameterType="Map" resultType="String">
 	SELECT RESULTROOM FROM RESULT WHERE RESULTROOM=#{result}
+	</select>
+	
+	
+	<!--기록을 받아서 기존의 쿼리를 업데이트 시켜주는 쿼리문 , 등급 업데이트 시켜주는 쿼리문 -->
+	<update id="update" parameterType="Map">
+	
+	UPDATE ROOMUSER SET USER_RECORD=#{record} WHERE USER_ID=#{id}
+	
+	</update>
+	
+	<!--등급 업데이트 시켜주는 쿼리문 , 회원등록및 탈퇴시키는 쿼리 -->
+	<update id="updategrade" parameterType="Map">
+	
+	UPDATE ROOMUSER SET GRADE=#{grade}, ENABLED=#{enabled} WHERE USER_ID=#{id}
+	
+	</update>
+	
+	<!--페이지수를 결정하는 쿼리 , 데이터의 수를 파악해서 올림해줌  -->
+	
+	<select id="boardcount" resultType="int">
+	
+		SELECT CEIL(COUNT(*)/10) as Count FROM ROOMUSER
+	
 	</select>
 	
 </mapper>

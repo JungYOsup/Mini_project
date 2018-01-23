@@ -5,6 +5,7 @@ import java.sql.Date;
 
 public class Dto {
 	
+	private int rank;
 	private int seq;
 	private String user_id;
 	private String user_pw;
@@ -19,6 +20,14 @@ public class Dto {
 	//기본생성자를 무조건 써줘야한다, 안그러면 mapping이 안됨
 	public Dto() {
 		
+	}
+
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
 	}
 
 	public int getSeq() {
@@ -103,10 +112,12 @@ public class Dto {
 
 	@Override
 	public String toString() {
-		return "Dto [seq=" + seq + ", user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name
-				+ ", email=" + email + ", user_record=" + user_record + ", regdate=" + regdate + ", grade=" + grade
-				+ ", enabled=" + enabled + ", sregdate=" + sregdate + "]";
+		return "Dto [rank=" + rank + ", seq=" + seq + ", user_id=" + user_id + ", user_pw=" + user_pw + ", user_name="
+				+ user_name + ", email=" + email + ", user_record=" + user_record + ", regdate=" + regdate + ", grade="
+				+ grade + ", enabled=" + enabled + ", sregdate=" + sregdate + "]";
 	}
+
+	
 	
 	
 	

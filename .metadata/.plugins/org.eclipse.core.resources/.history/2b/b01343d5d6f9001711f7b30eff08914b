@@ -1,7 +1,0 @@
-package min.edu.dto;
-
-public class Dto {
-
-	private String seq;
-	
-}
